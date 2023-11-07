@@ -11,7 +11,7 @@ String clinicsDetailModelToJson(ClinicsDetailModel data) =>
     json.encode(data.toJson());
 
 class ClinicsDetailModel {
-  Data? data;
+  ClinikData? data;
 
   ClinicsDetailModel({
     this.data,
@@ -19,7 +19,7 @@ class ClinicsDetailModel {
 
   factory ClinicsDetailModel.fromJson(Map<String, dynamic> json) =>
       ClinicsDetailModel(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : ClinikData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,7 +27,7 @@ class ClinicsDetailModel {
       };
 }
 
-class Data {
+class ClinikData {
   String? id;
   String? name;
   String? description;
@@ -41,7 +41,7 @@ class Data {
   int? averageReviews;
   Services? services;
 
-  Data({
+  ClinikData({
     this.id,
     this.name,
     this.description,
@@ -56,7 +56,7 @@ class Data {
     this.services,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ClinikData.fromJson(Map<String, dynamic> json) => ClinikData(
         id: json["id"],
         name: json["name"],
         description: json["description"],

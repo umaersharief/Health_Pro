@@ -14,7 +14,7 @@ class Teampackage extends StatelessWidget {
   Teampackage({super.key});
   List<MyWidget> mylist = [
     MyWidget(
-      color: Color(0xffDEEAFF),
+      color: const Color(0xffDEEAFF),
     ),
     MyWidget(
       haverow: true,
@@ -57,7 +57,7 @@ class Teampackage extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              Iconcontainer(),
+              const Iconcontainer(),
               SizedBox(
                 height: 19.h,
               ),
@@ -73,7 +73,7 @@ class Teampackage extends StatelessWidget {
                     itemCount: mylist.length),
               ),
               Container(
-                  margin: EdgeInsets.only(right: 20),
+                  margin: const EdgeInsets.only(right: 20),
                   child: customButton(
                     color: AppColors.dividercolor,
                     text: 'Contact Us',
@@ -81,7 +81,7 @@ class Teampackage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontColor: AppColors.cardcolor,
                     ontap: () {
-                      Get.to(() => TeamContact());
+                      Get.to(() => const TeamContact());
                     },
                   ))
             ],

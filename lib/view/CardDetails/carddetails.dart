@@ -49,8 +49,9 @@ class _CardDetailsState extends State<CardDetails> {
           .then((value) {
         _data = List.generate(value ?? 0, (i) => i);
         totalPage = _data.length % _perPage == 0
-            ? int.parse((_data.length/_perPage).toString())
-            : int.parse((_data.length/_perPage).toString().split('.').first) + 1;
+            ? int.parse((_data.length / _perPage).toString())
+            : int.parse((_data.length / _perPage).toString().split('.').first) +
+                1;
         setState(() {});
       });
     });
@@ -207,7 +208,9 @@ class _CardDetailsState extends State<CardDetails> {
                                     },
                                   ),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 NumberPaginator(
                                   config: NumberPaginatorUIConfig(
                                     // default height is 48
@@ -218,11 +221,11 @@ class _CardDetailsState extends State<CardDetails> {
                                     ),
                                     // buttonSelectedForegroundColor: Colors.white,
                                     // buttonUnselectedForegroundColor: Colors.white,
-                                    buttonUnselectedBackgroundColor: Colors.white,
+                                    buttonUnselectedBackgroundColor:
+                                        Colors.white,
                                     // buttonSelectedBackgroundColor: Colors.white,
                                   ),
                                   numberPages: totalPage,
-
                                   onPageChange: (int index) {
                                     debugPrint('onPageChange -- $index');
                                     setState(() {

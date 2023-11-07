@@ -9,7 +9,7 @@ class UserProfileProvider extends ChangeNotifier {
 
   Future<void> updateValue({required bool load}) async {
     _loading = load;
-    notifyListeners();
+    // notifyListeners();
   }
 
   ApiService apiService = ApiService();

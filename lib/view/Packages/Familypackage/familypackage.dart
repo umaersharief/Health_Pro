@@ -33,7 +33,7 @@ class Familypackage extends StatelessWidget {
     ),
     MyWidget(
       haverow: true,
-      rowtitle1: '>3Children',
+      rowtitle1: '3Children',
       rowtitle2: '1',
     ),
     MyWidget(
@@ -61,7 +61,7 @@ class Familypackage extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              Iconcontainer(),
+              const Iconcontainer(),
               SizedBox(
                 height: 19.h,
               ),

@@ -1,20 +1,16 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:health_pro/APIClient/api_service.dart';
-
 import '../Model/myplan_model.dart';
 
 class MyPlanProvider extends ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
-
   Future<void> updateValue({required bool load}) async {
     _loading = load;
     notifyListeners();
   }
-
   ApiService apiService = ApiService();
-
   // get my plan
   List<MyPlanModel> myplanModel = [];
   Future<void> getMyPlans() async {
@@ -31,7 +27,6 @@ class MyPlanProvider extends ChangeNotifier {
       }
     } catch (error) {
       updateValue(load: false);
-      // ignore: avoid_print
       print("this is error   $error ");
     }
   }

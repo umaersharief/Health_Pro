@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:health_pro/utils/app_colors.dart';
-import 'package:health_pro/view/Homepage/View/homepage.dart';
+import 'package:health_pro/view/Homepage/V/homepage.dart';
 import 'package:health_pro/view/Notification/notification.dart';
 import 'package:health_pro/view/Profile/profile.dart';
-import 'package:health_pro/view/Search/search.dart';
+import 'package:health_pro/view/allcliniks/V/allclinkiks.dart';
 
 class BottomNavbar extends StatefulWidget {
   int? setIndex;
@@ -20,18 +20,17 @@ class _BottomNavbarState extends State<BottomNavbar> {
   int activeindex = 0;
   List pages = [
     const HomeScreen(),
-    Searchscreen(),
+    const Searchscreen(),
     // Notificationscreen(),
     const Profilescreen(),
   ];
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(widget.setIndex!=null){
-      changepage(widget.setIndex??0);
+    if (widget.setIndex != null) {
+      changepage(widget.setIndex ?? 0);
     }
   }
 
@@ -46,7 +45,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
       backgroundColor: AppColors.dividercolor,
       body: pages[activeindex],
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           boxShadow: [
@@ -57,7 +56,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           child: BottomNavigationBar(
             currentIndex: activeindex,
@@ -95,13 +94,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
               changepage(value);
             },
             selectedItemColor: AppColors.cardcolor,
-            unselectedItemColor: Color(0xff888888),
+            unselectedItemColor: const Color(0xff888888),
             showUnselectedLabels: true,
             unselectedLabelStyle: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 10.sp,
               fontWeight: FontWeight.w400,
-              color: Color(0xff7B7B7B),
+              color: const Color(0xff7B7B7B),
             ),
             selectedLabelStyle: TextStyle(
               fontFamily: 'Poppins',

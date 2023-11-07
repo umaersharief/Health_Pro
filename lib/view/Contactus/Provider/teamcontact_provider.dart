@@ -39,7 +39,7 @@ class TeamContactProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         updateValue(load: false);
         AppConstant.showCustomSnackBar("Done", isError: false);
-        Get.off(() =>  BottomNavbar(0));
+        Get.off(() => BottomNavbar(0));
       } else {
         updateValue(load: false);
         AppConstant.showCustomSnackBar(

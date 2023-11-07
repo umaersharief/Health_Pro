@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -6,6 +8,7 @@ import 'package:health_pro/utils/app_colors.dart';
 import 'package:health_pro/utils/app_images.dart';
 import 'package:health_pro/view/CardDetails/Provider/pandetails_provider.dart';
 import 'package:health_pro/view/Cardregistration/cardregistration.dart';
+import 'package:health_pro/view/Homepage/C/controller.dart';
 import 'package:health_pro/view/UserProfile/Provider/userprofile_provider.dart';
 import 'package:health_pro/view/CardDetails/carddetails.dart';
 import 'package:health_pro/view/widgets/widgets/custom_text.dart';
@@ -14,7 +17,7 @@ import '../../Cardregistration/Provider/cardregister_provider.dart';
 import '../../Contactus/Provider/teamcontact_provider.dart';
 import '../../Packages/Familypackage/familypackage.dart';
 import '../../Packages/TeamPackage/teampackage.dart';
-import '../Provider/home_provider.dart';
+import '../../allcliniks/C/controller.dart';
 import '../components/homecomponent.dart';
 import '../components/servicecomponent.dart';
 import '../components/shimercomponenet.dart';
@@ -29,11 +32,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    Get.put(HomeController());
     Provider.of<UserProfileProvider>(context, listen: false).getUserProfile();
-    Provider.of<HomeProvider>(context, listen: false).getCorporateplan();
-    Provider.of<HomeProvider>(context, listen: false).getIndividualplan();
-    Provider.of<HomeProvider>(context, listen: false).getallClinics();
-    Provider.of<HomeProvider>(context, listen: false).getSchemes();
+    HomeController.my.getCorporateplan();
+    HomeController.my.getIndividualplan();
+    HomeController.my.getallClinics();
+    HomeController.my.getSchemes();
 
     super.initState();
   }
@@ -182,8 +186,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 46.h,
             ),
-            Consumer<HomeProvider>(
-              builder: (context, homeprovider, child) {
+            GetBuilder<HomeController>(
+              builder: (obj) {
                 // ignore: avoid_unnecessary_containers
                 return Container(
                   // padding: EdgeInsets.symmetric(horizontal: 14),
@@ -219,70 +223,57 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 12.h,
                       ),
-                      Consumer<HomeProvider>(
-                        builder: (context, individualplans, child) {
+                      obj.individualplanModel.isEmpty
+                          // ? SpinKitCircle(
+                          //     color: AppColors.blueb9,
+                          //     size: 20.sp,
+                          //   )
+
+                          ? const HomeShimer()
                           // ignore: prefer_is_empty
-                          return individualplans.individualplanModel.length == 0
-                              // ? SpinKitCircle(
-                              //     color: AppColors.blueb9,
-                              //     size: 20.sp,
-                              //   )
+                          : obj.individualplanModel[0].data!.length == 0
+                              ? const Text("NO Individual Card ")
+                              : SizedBox(
+                                  height: 270.h,
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: obj
+                                          .individualplanModel[0].data!.length,
+                                      itemBuilder: (context, index) {
+                                        return Homecomponent(
+                                          image:
+                                              "${obj.individualplanModel[0].data![index].image}",
+                                          title:
+                                              "${obj.individualplanModel[0].data![index].name}",
+                                          price:
+                                              "${obj.individualplanModel[0].data![index].price}",
+                                          imageonTap: () {
+                                            Provider.of<PlanDetailsProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .planID =
+                                                obj.individualplanModel[0]
+                                                    .data![index].id
+                                                    .toString();
 
-                              ? const HomeShimer()
-                              // ignore: prefer_is_empty
-                              : individualplans.individualplanModel[0].data!
-                                          .length ==
-                                      0
-                                  ? const Text("NO Individual Card ")
-                                  : SizedBox(
-                                      height: 270.h,
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          physics:
-                                              const AlwaysScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: individualplans
-                                              .individualplanModel[0]
-                                              .data!
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            return Homecomponent(
-                                              image:
-                                                  "${individualplans.individualplanModel[0].data![index].image}",
-                                              title:
-                                                  "${individualplans.individualplanModel[0].data![index].name}",
-                                              price:
-                                                  "${individualplans.individualplanModel[0].data![index].price}",
-                                              imageonTap: () {
-                                                Provider.of<PlanDetailsProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .planID =
-                                                    individualplans
-                                                        .individualplanModel[0]
-                                                        .data![index]
-                                                        .id
-                                                        .toString();
-
-                                                Get.to(() => CardDetails());
-                                              },
-                                              ontap: () => Get.to(() =>
-                                                  CardRegistration(Provider.of<
-                                                                  CareCardRegiterProvider>(
+                                            Get.to(() => CardDetails());
+                                          },
+                                          ontap: () => Get.to(() =>
+                                              CardRegistration(
+                                                  Provider.of<CareCardRegiterProvider>(
                                                               context,
                                                               listen: false)
                                                           .planID =
-                                                      individualplans
-                                                          .individualplanModel[
-                                                              0]
-                                                          .data![index]
-                                                          .id
+                                                      obj.individualplanModel[0]
+                                                          .data![index].id
                                                           .toString())),
-                                            );
-                                          }),
-                                    );
-                        },
-                      ),
+                                        );
+                                      }),
+                                ),
+
                       SizedBox(
                         height: 21.h,
                       ),
@@ -314,67 +305,55 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 12.h,
                       ),
-                      Consumer<HomeProvider>(
-                        builder: (context, corporateplans, child) {
+                      obj.corporateplanModel.isEmpty
+                          ? SpinKitCircle(
+                              color: AppColors.blueb9,
+                              size: 20.sp,
+                            )
                           // ignore: prefer_is_empty
-                          return corporateplans.corporateplanModel.length == 0
-                              ? SpinKitCircle(
-                                  color: AppColors.blueb9,
-                                  size: 20.sp,
-                                )
-                              // ignore: prefer_is_empty
-                              : corporateplans
-                                          .corporateplanModel[0].data!.length ==
-                                      0
-                                  ? const Text("NO Individual Card ")
-                                  : SizedBox(
-                                      height: 270.h,
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          physics:
-                                              const AlwaysScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: corporateplans
-                                              .corporateplanModel[0]
-                                              .data!
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            return Homecomponent(
-                                              image:
-                                                  "${corporateplans.corporateplanModel[0].data![index].image}",
-                                              title:
-                                                  "${corporateplans.corporateplanModel[0].data![index].name}",
-                                              price:
-                                                  "${corporateplans.corporateplanModel[0].data![index].price}",
-                                              imageonTap: () {
-                                                Provider.of<PlanDetailsProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .planID =
-                                                    corporateplans
-                                                        .corporateplanModel[0]
-                                                        .data![index]
-                                                        .id
-                                                        .toString();
+                          : obj.corporateplanModel[0].data!.length == 0
+                              ? const Text("NO Individual Card ")
+                              : SizedBox(
+                                  height: 270.h,
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: obj
+                                          .corporateplanModel[0].data!.length,
+                                      itemBuilder: (context, index) {
+                                        return Homecomponent(
+                                          image:
+                                              "${obj.corporateplanModel[0].data![index].image}",
+                                          title:
+                                              "${obj.corporateplanModel[0].data![index].name}",
+                                          price:
+                                              "${obj.corporateplanModel[0].data![index].price}",
+                                          imageonTap: () {
+                                            Provider.of<PlanDetailsProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .planID =
+                                                obj.corporateplanModel[0]
+                                                    .data![index].id
+                                                    .toString();
 
-                                                Get.to(() => CardDetails());
-                                              },
-                                              ontap: () => Get.to(() =>
-                                                  CardRegistration(Provider.of<
-                                                                  CareCardRegiterProvider>(
+                                            Get.to(() => CardDetails());
+                                          },
+                                          ontap: () => Get.to(() =>
+                                              CardRegistration(
+                                                  Provider.of<CareCardRegiterProvider>(
                                                               context,
                                                               listen: false)
                                                           .planID =
-                                                      corporateplans
-                                                          .corporateplanModel[0]
-                                                          .data![index]
-                                                          .id
+                                                      obj.corporateplanModel[0]
+                                                          .data![index].id
                                                           .toString())),
-                                            );
-                                          }),
-                                    );
-                        },
-                      ),
+                                        );
+                                      }),
+                                ),
+
                       SizedBox(
                         height: 23.h,
                       ),
@@ -406,66 +385,55 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 12.h,
                       ),
-                      Consumer<HomeProvider>(
-                        builder: (context, schemsPackages, child) {
-                          // ignore: prefer_is_empty
-                          return schemsPackages.schemesPackageModel.length == 0
-                              ? SpinKitCircle(
-                                  color: AppColors.blueb9,
-                                  size: 20.sp,
-                                )
-                              : SizedBox(
-                                  height: 270.h,
-                                  child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: schemsPackages
-                                          .schemesPackageModel[0].data!.length,
-                                      itemBuilder: (context, index) {
-                                        return Homecomponent(
-                                          ispackage: true,
-                                          image:
-                                              "${schemsPackages.schemesPackageModel[0].data![index].image}",
-                                          imageonTap: () {},
-                                          ontap: () {
-                                            if (schemsPackages
-                                                    .schemesPackageModel[0]
-                                                    .data![index]
-                                                    .name ==
-                                                'Team') {
-                                              Provider.of<TeamContactProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .schmID =
-                                                  schemsPackages
-                                                      .schemesPackageModel[1]
-                                                      .data![index]
-                                                      .id;
-
-                                              Get.to(() => Teampackage());
-                                            } else {
-                                              Provider.of<TeamContactProvider>(
-                                                  context,
-                                                  listen: false)
+                      obj.schemesPackageModel == null
+                          ? SpinKitCircle(
+                              color: AppColors.blueb9,
+                              size: 20.sp,
+                            )
+                          : SizedBox(
+                              height: 270.h,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      obj.schemesPackageModel!.data!.length,
+                                  itemBuilder: (context, index) {
+                                    return Homecomponent(
+                                      ispackage: true,
+                                      image:
+                                          "${obj.schemesPackageModel!.data![index].image}",
+                                      imageonTap: () {},
+                                      ontap: () {
+                                        if (obj.schemesPackageModel!
+                                                .data![index].name ==
+                                            'Team') {
+                                          Provider.of<TeamContactProvider>(
+                                                      context,
+                                                      listen: false)
                                                   .schmID =
-                                                  schemsPackages
-                                                      .schemesPackageModel[0]
-                                                      .data![index]
-                                                      .id;
+                                              obj.schemesPackageModel!
+                                                  .data![index].id;
 
-                                              Get.to(() => Familypackage());
-                                            }
-                                          },
-                                          title:
-                                              "${schemsPackages.schemesPackageModel[0].data![index].name}",
-                                          price: '',
-                                        );
-                                      }),
-                                );
-                        },
-                      ),
+                                          Get.to(() => Teampackage());
+                                        } else {
+                                          Provider.of<TeamContactProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .schmID =
+                                              obj.schemesPackageModel!
+                                                  .data![index].id;
+
+                                          Get.to(() => Familypackage());
+                                        }
+                                      },
+                                      title:
+                                          "${obj.schemesPackageModel!.data![index].name}",
+                                      price: '',
+                                    );
+                                  }),
+                            ),
                       SizedBox(
                         height: 23.h,
                       ),
@@ -482,13 +450,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 12.h,
                       ),
                       // ignore: prefer_is_empty
-                      homeprovider.allClinicsModel.length == 0
+
+                      obj.allClinicsModel == null
                           ? SpinKitCircle(
                               color: AppColors.white,
                               size: 20.sp,
                             )
                           // ignore: prefer_is_empty
-                          : homeprovider.allClinicsModel[0].data!.length == 0
+                          : obj.allClinicsModel!.data!.length == 0
                               ? const Text("No Clinics ")
                               : SizedBox(
                                   height: 115.h,
@@ -497,11 +466,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       physics:
                                           const AlwaysScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount: homeprovider
-                                          .allClinicsModel[0].data!.length,
+                                      itemCount:
+                                          obj.allClinicsModel!.data!.length,
                                       itemBuilder: (context, index) {
-                                        final allClinics = homeprovider
-                                            .allClinicsModel[0].data![index];
+                                        final allClinics =
+                                            obj.allClinicsModel!.data![index];
                                         return Servicecomponent(
                                           image: AppImages.pic2,
                                           title: "${allClinics.name}",
