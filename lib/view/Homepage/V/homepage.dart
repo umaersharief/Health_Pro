@@ -251,15 +251,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                           price:
                                               "${obj.individualplanModel[0].data![index].price}",
                                           imageonTap: () {
-                                            Provider.of<PlanDetailsProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .planID =
-                                                obj.individualplanModel[0]
-                                                    .data![index].id
-                                                    .toString();
+                                            var p = Provider.of<
+                                                    PlanDetailsProvider>(
+                                                context,
+                                                listen: false);
 
-                                            Get.to(() => CardDetails());
+                                            p
+                                                .givepagination(
+                                                    context,
+                                                    obj.individualplanModel[0]
+                                                        .data![index].id
+                                                        .toString())
+                                                .then((value) {
+                                              Get.to(() => CardDetails());
+                                            });
                                           },
                                           ontap: () => Get.to(() =>
                                               CardRegistration(
@@ -290,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 1.5),
                             GestureDetector(
                               onTap: () {
-                                Get.to(() => CardDetails());
+                                // Get.to(() => CardDetails());
                               },
                               child: customTextRegular(
                                   title: "See All",
@@ -331,15 +336,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                           price:
                                               "${obj.corporateplanModel[0].data![index].price}",
                                           imageonTap: () {
-                                            Provider.of<PlanDetailsProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .planID =
-                                                obj.corporateplanModel[0]
-                                                    .data![index].id
-                                                    .toString();
+                                            var p = Provider.of<
+                                                    PlanDetailsProvider>(
+                                                context,
+                                                listen: false);
 
-                                            Get.to(() => CardDetails());
+                                            p
+                                                .givepagination(
+                                                    context,
+                                                    obj.individualplanModel[0]
+                                                        .data![index].id
+                                                        .toString())
+                                                .then((value) {
+                                              Get.to(() => CardDetails());
+                                            });
                                           },
                                           ontap: () => Get.to(() =>
                                               CardRegistration(

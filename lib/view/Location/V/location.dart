@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -30,8 +29,6 @@ class Locationscreen extends StatelessWidget {
     var clinickImage = clinikData?.image![0];
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    // log("clinikData!.latitude ${clinikData!.latitude}    OR     clinikData!.longitude ${clinikData!.longitude} ");
-    log("Location page latitude $latitude    OR     longitude $longitude");
 
     CameraPosition kGooglePlex = CameraPosition(
       zoom: 18,

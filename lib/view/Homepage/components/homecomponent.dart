@@ -44,7 +44,7 @@ class Homecomponent extends StatelessWidget {
                 borderRadius: BorderRadius.circular(22.r),
                 image: DecorationImage(
                   image: NetworkImage(image),
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),

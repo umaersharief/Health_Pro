@@ -99,7 +99,7 @@ class LogInProvider extends ChangeNotifier {
           google_id: loginUser!.uid,
           email: loginUser!.email!,
           name: loginUser!.displayName!,
-          provider: "facebook / google",
+          provider: "google",
         );
       }
     } on FirebaseAuthException catch (e) {

@@ -74,7 +74,6 @@ class HomeController extends GetxController {
       final response = await apiService.getSchemes();
 
       // ignore: avoid_print
-      log("response is ${response.statusCode}");
       if (response.statusCode == 200) {
         // log("json ${response.toString()}");
 
@@ -107,7 +106,6 @@ class HomeController extends GetxController {
         Map<String, dynamic> map = await jsonDecode(response.toString());
 
         allClinicsModel = AllClinicsModel.fromJson(map);
-        log("allClinicsModelallClinicsModel ${allClinicsModel!.data!.length}");
         update();
       } else {
         updateValue(load: false);
