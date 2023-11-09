@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:health_pro/utils/app_colors.dart';
 import 'package:health_pro/utils/app_images.dart';
+import 'package:health_pro/view/Regcarddetails/Provider/myplan_provider.dart';
 import 'package:health_pro/view/UserProfile/getuserprofile.dart';
 import 'package:health_pro/view/Healthhistory/healthhistory.dart';
 import 'package:health_pro/view/Help/help.dart';
@@ -94,7 +95,9 @@ class _ProfilescreenState extends State<Profilescreen> {
                 text: 'My Care Card',
                 icon: CupertinoIcons.creditcard_fill,
                 ontap: () {
-                  Get.to(() => RegcardDetails());
+                  Provider.of<MyPlanProvider>(context, listen: false)
+                      .getMyPlans();
+                  // Get.to(() => RegcardDetails());
                 },
               ),
               Profilecomp1(

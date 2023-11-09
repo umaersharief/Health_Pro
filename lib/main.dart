@@ -6,7 +6,6 @@ import 'package:health_pro/view/CardDetails/Provider/pandetails_provider.dart';
 import 'package:health_pro/view/Cardregistration/Provider/cardregister_provider.dart';
 import 'package:health_pro/view/Contactus/Provider/teamcontact_provider.dart';
 import 'package:health_pro/view/Mypassword/Provider/changpassword_provider.dart';
-import 'package:health_pro/view/ClinicsDetails/Provider/clinicsdetails_provider.dart';
 import 'package:health_pro/view/Splash/Provider/splash_provider.dart';
 import 'package:health_pro/view/UserProfile/Provider/editprofile_provider.dart';
 import 'package:health_pro/view/UserProfile/Provider/userprofile_provider.dart';
@@ -18,7 +17,6 @@ import 'package:health_pro/view/auth/Register/Provider/register_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'firebase_options.dart';
-import 'view/Homepage/Provider/home_provider.dart';
 import 'view/auth/Login/Provider/logout_provider.dart';
 
 void main() async {
@@ -46,9 +44,9 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => RegisterProvider()),
               ChangeNotifierProvider(create: (_) => LogoutProvider()),
               ChangeNotifierProvider(create: (_) => ChangePasswordProvider()),
-              ChangeNotifierProvider(create: (_) => HomeProvider()),
+              // ChangeNotifierProvider(create: (_) => HomeProvider()),
               ChangeNotifierProvider(create: (_) => UserProfileProvider()),
-              ChangeNotifierProvider(create: (_) => ClinicDetailProvider()),
+              // ChangeNotifierProvider(create: (_) => ClinicDetailProvider()),
               ChangeNotifierProvider(create: (_) => CareCardRegiterProvider()),
               ChangeNotifierProvider(create: (_) => MyPlanProvider()),
               ChangeNotifierProvider(create: (_) => TeamContactProvider()),

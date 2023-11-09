@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -71,38 +72,71 @@ class LogInProvider extends ChangeNotifier {
 //                           Google Login
 //*****************************************************************************
 
-  void googleLogin() async {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  Auth.User? loginUser;
+
+  Future<Auth.User> signInWithGoogle(
+    context,
+  ) async {
     updateValue(load: true);
-    GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-
+    GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
     try {
-      await _googleSignIn.signIn();
-      GoogleSignInAuthentication googleAuth =
-          await _googleSignIn.currentUser!.authentication;
+      UserCredential authResult = await auth.signInWithCredential(credential);
+      loginUser = authResult.user;
 
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(
-        GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        ),
-      );
-
-      // Request FCM token
-      FirebaseMessaging messaging = FirebaseMessaging.instance;
-      String? fcmToken = await messaging.getToken();
-      print('FCM Token: $fcmToken');
-
-      googleSignUp(
-        google_id: userCredential.user!.uid,
-        email: userCredential.user!.email!,
-        name: userCredential.user!.displayName!,
-        provider: "facebook / google",
-      );
-    } catch (error) {
-      print(error);
+      if (loginUser != null) {
+        FirebaseMessaging messaging = FirebaseMessaging.instance;
+        String? fcmToken = await messaging.getToken();
+        print('FCM Token: $fcmToken');
+        googleSignUp(
+          google_id: loginUser!.uid,
+          email: loginUser!.email!,
+          name: loginUser!.displayName!,
+          provider: "facebook / google",
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+      } else if (e.code == 'invalid-credential') {}
     }
+    return loginUser!;
   }
+  // void googleLogin() async {
+  //   updateValue(load: true);
+  //   GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+
+  //   try {
+  //     await googleSignIn.signIn();
+  //     GoogleSignInAuthentication googleAuth =
+  //         await googleSignIn.currentUser!.authentication;
+
+  //     UserCredential userCredential =
+  //         await FirebaseAuth.instance.signInWithCredential(
+  //       GoogleAuthProvider.credential(
+  //         accessToken: googleAuth.accessToken,
+  //         idToken: googleAuth.idToken,
+  //       ),
+  //     );
+
+  //     // Request FCM token
+
+  //     googleSignUp(
+  //       google_id: userCredential.user!.uid,
+  //       email: userCredential.user!.email!,
+  //       name: userCredential.user!.displayName!,
+  //       provider: "facebook / google",
+  //     );
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
 
   Future<void> googleSignUp({
     required String email,

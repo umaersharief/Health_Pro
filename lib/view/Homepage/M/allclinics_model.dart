@@ -1,22 +1,22 @@
 class AllClinicsModel {
   int? total;
-  List<Data>? data;
+  List<ClinikData>? data;
 
   AllClinicsModel({this.total, this.data});
 
   AllClinicsModel.fromJson(Map<String, dynamic> json) {
     total = json['total'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <ClinikData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(ClinikData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total'] = total;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -24,7 +24,7 @@ class AllClinicsModel {
   }
 }
 
-class Data {
+class ClinikData {
   String? id;
   String? name;
   String? description;
@@ -33,7 +33,7 @@ class Data {
   int? totalReviews;
   int? averageReviews;
 
-  Data(
+  ClinikData(
       {this.id,
       this.name,
       this.description,
@@ -42,7 +42,7 @@ class Data {
       this.totalReviews,
       this.averageReviews});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ClinikData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
@@ -53,14 +53,14 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['area'] = this.area;
-    data['logo'] = this.logo;
-    data['total_reviews'] = this.totalReviews;
-    data['average_reviews'] = this.averageReviews;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    data['area'] = area;
+    data['logo'] = logo;
+    data['total_reviews'] = totalReviews;
+    data['average_reviews'] = averageReviews;
     return data;
   }
 }
