@@ -60,8 +60,8 @@ class SingleClinikData {
     phone = json['phone'];
     time = json['time'] ?? '00:00';
     endTime = json['end_time'] ?? '00:00';
-    latitude = double.parse(json['latitude'] ?? '29.418068');
-    longitude = double.parse(json['latitude'] ?? '71.670685');
+    latitude = double.parse(json['latitude'] ?? '25.3548');
+    longitude = double.parse(json['latitude'] ?? '51.1839');
     location = json['location'] ?? '';
     image = json['image'].cast<String>() ?? [];
     totalReviews = json['total_reviews'] ?? 0;

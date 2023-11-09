@@ -11,7 +11,6 @@ import 'package:health_pro/view/ClinicsDetails/M/singleclinik_model.dart';
 import 'package:health_pro/view/Location/C/controller.dart';
 
 import '../../../utils/app_images.dart';
-import '../../ClinicsDetails/C/controller.dart';
 import '../../widgets/widgets/custom_text.dart';
 
 class Locationscreen extends StatelessWidget {
@@ -36,7 +35,7 @@ class Locationscreen extends StatelessWidget {
 
     CameraPosition kGooglePlex = CameraPosition(
       zoom: 18,
-      target: LatLng(clinikData!.latitude!, clinikData!.longitude!),
+      target: LatLng(double.parse(latitude), double.parse(longitude)),
     );
 
     final BitmapDescriptor customMarkerIcon =
@@ -69,6 +68,7 @@ class Locationscreen extends StatelessWidget {
                     GoogleMap(
                       onTap: (argument) {
                         obj.clearSelectedLocation();
+                        log("latlng ${argument.latitude}  ${argument.longitude}");
                       },
                       zoomControlsEnabled: true,
                       onMapCreated: (controller) {
@@ -113,10 +113,9 @@ class Locationscreen extends StatelessWidget {
                           ),
                           child: ListTile(
                             onTap: () {
-                              print('clinick image : ${clinikData?.image}');
                               obj.clearSelectedLocation();
-                              obj.initialPosition(LatLng(clinikData!.latitude!,
-                                  clinikData!.longitude!));
+                              obj.initialPosition(LatLng(double.parse(latitude),
+                                  double.parse(longitude)));
                             },
                             leading: clinickImage == null
                                 ? CircleAvatar(
