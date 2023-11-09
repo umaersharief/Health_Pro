@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:health_pro/view/Location/M/model.dart' as l;
+import 'package:health_pro/view/Location/S/place_service.dart';
 import 'package:location/location.dart';
 
 class LocationController extends GetxController {
   static LocationController get my => Get.find();
   LocationData? locationData;
   StreamSubscription? locationSubscription;
-  Location location = Location();
+  Location locationloc = Location();
   Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
   LatLng? movingCurrentLocation;
@@ -55,7 +57,8 @@ class LocationController extends GetxController {
 
   void livelistenLocation(BuildContext context) {
     Future.delayed(Duration.zero, () async {
-      locationSubscription = location.onLocationChanged.handleError((onError) {
+      locationSubscription =
+          locationloc.onLocationChanged.handleError((onError) {
         locationSubscription!.cancel();
         locationSubscription = null;
         update();
@@ -67,5 +70,28 @@ class LocationController extends GetxController {
       });
       update();
     });
+  }
+
+// search work
+  List<l.PlaceSearch>? searchResults;
+
+  final placesService = PlacesService();
+
+  searchPlaces(String searchTerm) async {
+    searchResults = await placesService.getAutocomplete(searchTerm);
+    update();
+  }
+
+  setSelectedLocation(String placeId) async {
+    var sLocation = await placesService.getPlace(placeId);
+    initialPosition(LatLng(sLocation.geometry!.location!.lat!,
+        sLocation.geometry!.location!.lng!));
+    searchResults = null;
+    update();
+  }
+
+  clearSelectedLocation() {
+    searchResults = null;
+    update();
   }
 }

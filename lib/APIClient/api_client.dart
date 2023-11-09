@@ -36,7 +36,8 @@ class APIClient {
   }) async {
     Response response;
     try {
-      response = await _dio.get(url, options: Options(responseType: ResponseType.json, headers: headers));
+      response = await _dio.get(url,
+          options: Options(responseType: ResponseType.json, headers: headers));
     } on DioException catch (exception) {
       String content = exception.response.toString();
       rethrow;

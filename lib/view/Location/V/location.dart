@@ -27,8 +27,12 @@ class Locationscreen extends StatelessWidget {
       zoom: 18,
       target: LatLng(clinikData!.latitude!, clinikData!.longitude!),
     );
+
+    final BitmapDescriptor customMarkerIcon =
+        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
     final List<Marker> markers = <Marker>[
       Marker(
+          icon: customMarkerIcon,
           markerId: const MarkerId('1'),
           position: LatLng(clinikData!.latitude!, clinikData!.longitude!),
           infoWindow: InfoWindow(title: "${clinikData!.name}"))
@@ -52,6 +56,9 @@ class Locationscreen extends StatelessWidget {
               : Stack(
                   children: [
                     GoogleMap(
+                      onTap: (argument) {
+                        obj.clearSelectedLocation();
+                      },
                       zoomControlsEnabled: true,
                       onMapCreated: (controller) {
                         if (!obj.mapController.isCompleted) {
@@ -79,40 +86,6 @@ class Locationscreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      top: 85,
-                      left: 30,
-                      child: SizedBox(
-                        width: 327.w,
-                        height: 48.h,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.dividercolor,
-                            prefixIcon: Icon(
-                              Icons.search,
-                              size: 24.sp,
-                              color: AppColors.cardcolor,
-                            ),
-                            hintText: 'Search...',
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 6),
-                            hintStyle: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff747474)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Color.fromRGBO(0, 0, 0, 0.10),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
                       bottom: 40,
                       left: 43,
                       child: Card(
@@ -129,6 +102,7 @@ class Locationscreen extends StatelessWidget {
                           ),
                           child: ListTile(
                             onTap: () {
+                              obj.clearSelectedLocation();
                               obj.initialPosition(LatLng(clinikData!.latitude!,
                                   clinikData!.longitude!));
                             },
@@ -211,6 +185,7 @@ class Locationscreen extends StatelessWidget {
                       child: FloatingActionButton(
                         heroTag: "btn3",
                         onPressed: () {
+                          obj.clearSelectedLocation();
                           obj.mapTypeChange();
                         },
                         materialTapTargetSize: MaterialTapTargetSize.padded,
@@ -228,6 +203,7 @@ class Locationscreen extends StatelessWidget {
                       child: FloatingActionButton(
                         heroTag: "btn1",
                         onPressed: () {
+                          obj.clearSelectedLocation();
                           obj.initialPosition(obj.movingCurrentLocation!);
                         },
                         materialTapTargetSize: MaterialTapTargetSize.padded,
@@ -236,6 +212,82 @@ class Locationscreen extends StatelessWidget {
                           Icons.my_location_sharp,
                           size: 23.0,
                           color: AppColors.cardcolor,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 85,
+                      left: 30,
+                      child: SizedBox(
+                        width: 327.w,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: 327.w,
+                              height: 48.h,
+                              child: TextField(
+                                onChanged: (value) => obj.searchPlaces(value),
+                                onTap: () => obj.clearSelectedLocation(),
+                                decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.r),
+                                    borderSide: BorderSide(
+                                      width: 1.5.w,
+                                      color: AppColors.primaryblue,
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: AppColors.dividercolor,
+                                  prefixIcon: Icon(
+                                    Icons.search,
+                                    size: 24.sp,
+                                    color: AppColors.cardcolor,
+                                  ),
+                                  hintText: 'Search...',
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(vertical: 6),
+                                  hintStyle: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xff747474)),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.r),
+                                    borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color.fromRGBO(0, 0, 0, 0.10),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            if (obj.searchResults != null &&
+                                obj.searchResults!.isNotEmpty)
+                              if (obj.searchResults != null)
+                                Card(
+                                  elevation: 10,
+                                  color: Colors.white,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: obj.searchResults!.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          title: Text(
+                                            obj.searchResults![index]
+                                                .description!,
+                                            style: const TextStyle(
+                                              color: AppColors.primaryblue,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            obj.setSelectedLocation(obj
+                                                .searchResults![index]
+                                                .placeId!);
+                                          },
+                                        );
+                                      }),
+                                ),
+                          ],
                         ),
                       ),
                     ),

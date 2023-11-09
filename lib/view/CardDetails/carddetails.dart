@@ -195,9 +195,6 @@ class _CardDetailsState extends State<CardDetails> {
                                           .clinics!
                                           .data![dataToShow[index]];
 
-                                      debugPrint(
-                                          'item item index ${dataToShow[index]} ${item.name}');
-
                                       return Placecomponent(
                                         image: "${item.logo}",
                                         title: "${item.name}",
