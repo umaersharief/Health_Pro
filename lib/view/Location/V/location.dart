@@ -50,7 +50,7 @@ class Locationscreen extends StatelessWidget {
           child: obj.currentPosition == null
               ? Center(
                   child: SpinKitCircle(
-                  color: Colors.white,
+                  color: AppColors.primaryblue,
                   size: 20.sp,
                 ))
               : Stack(
