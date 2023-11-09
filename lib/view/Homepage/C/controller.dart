@@ -74,11 +74,14 @@ class HomeController extends GetxController {
       final response = await apiService.getSchemes();
 
       // ignore: avoid_print
-      print(
-          "***Responce ***${response.statusCode}**********${response.data}*************");
+      log("response is ${response.statusCode}");
       if (response.statusCode == 200) {
-        Map<String, dynamic> map = await jsonDecode(response.toString());
-        schemesPackageModel = AllSchemesModel.fromJson(map);
+        // log("json ${response.toString()}");
+
+        var map = json.decode(response.toString());
+
+        schemesPackageModel =
+            AllSchemesModel.fromJson(map as Map<String, dynamic>);
         update();
       } else {
         updateValue(load: false);

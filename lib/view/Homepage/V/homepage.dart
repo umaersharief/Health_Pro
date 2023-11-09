@@ -416,7 +416,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               obj.schemesPackageModel!
                                                   .data![index].id;
 
-                                          Get.to(() => Teampackage());
+                                          Get.to(() => Teampackage(
+                                                dataPlan: obj
+                                                    .schemesPackageModel!
+                                                    .data![index],
+                                              ));
                                         } else {
                                           Provider.of<TeamContactProvider>(
                                                       context,
@@ -425,7 +429,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               obj.schemesPackageModel!
                                                   .data![index].id;
 
-                                          Get.to(() => Familypackage());
+                                          Get.to(() => Familypackage(
+                                                dataPlan: obj
+                                                    .schemesPackageModel!
+                                                    .data![index],
+                                              ));
                                         }
                                       },
                                       title:
@@ -472,7 +480,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         final allClinics =
                                             obj.allClinicsModel!.data![index];
                                         return Servicecomponent(
-                                          image: AppImages.pic2,
+                                          image: allClinics.logo!,
                                           title: "${allClinics.name}",
                                           description:
                                               "${allClinics.description}",

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:health_pro/view/ClinicsDetails/M/clinicsdetails_model.dart';
 import 'package:health_pro/view/Homepage/C/controller.dart';
+import 'package:health_pro/view/Homepage/M/allclinics_model.dart';
 
 class AllClinikCOntroller extends GetxController {
   static AllClinikCOntroller get my => Get.find();
@@ -15,8 +15,6 @@ class AllClinikCOntroller extends GetxController {
 
   void getfiltercliniks(context) {
     if (HomeController.my.allClinicsModel != null) {
-      print(
-          "provider.allClinicsModel[0].data   ${HomeController.my.allClinicsModel!.data!.length} ");
       filterscliicsModel = HomeController.my.allClinicsModel!.data!
           .where((cliniks) =>
               querry.isEmpty ||

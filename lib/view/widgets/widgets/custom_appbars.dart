@@ -9,7 +9,7 @@ Widget customAppBar({
   String text = "",
 }) {
   return Container(
-    child: Column(
+    child: const Column(
       children: [],
     ),
   );

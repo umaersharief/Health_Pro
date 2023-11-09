@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:health_pro/APIClient/api_service.dart';
-import 'package:health_pro/view/ClinicsDetails/M/clinicsdetails_model.dart';
+import 'package:health_pro/view/ClinicsDetails/M/singleclinik_model.dart';
 
 class ClinicDetailController extends GetxController {
   static ClinicDetailController get my => Get.find();
@@ -17,7 +18,8 @@ class ClinicDetailController extends GetxController {
 
   ApiService apiService = ApiService();
 
-  ClinicsDetailModel? cliicsDetailsModel;
+  SingleClinikData? clinikDatta;
+
   Future<void> getClinicsbyID(clinicID) async {
     updateValue(load: true);
     try {
@@ -25,7 +27,10 @@ class ClinicDetailController extends GetxController {
           await apiService.getClinicsbyID(clinicID: clinicID.toString());
       if (response.statusCode == 200) {
         Map<String, dynamic> map = await jsonDecode(response.toString());
-        cliicsDetailsModel = ClinicsDetailModel.fromJson(map);
+        log("map $map");
+        var cliicsDetailsModel = ClinikSingleDetailModel.fromJson(map);
+        clinikDatta = cliicsDetailsModel.data;
+
         update();
       } else {
         updateValue(load: false);

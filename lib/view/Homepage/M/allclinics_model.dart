@@ -1,5 +1,3 @@
-import 'package:health_pro/view/ClinicsDetails/M/clinicsdetails_model.dart';
-
 class AllClinicsModel {
   int? total;
   List<ClinikData>? data;
@@ -26,7 +24,7 @@ class AllClinicsModel {
   }
 }
 
-class Data {
+class ClinikData {
   String? id;
   String? name;
   String? description;
@@ -35,7 +33,7 @@ class Data {
   int? totalReviews;
   int? averageReviews;
 
-  Data(
+  ClinikData(
       {this.id,
       this.name,
       this.description,
@@ -44,7 +42,7 @@ class Data {
       this.totalReviews,
       this.averageReviews});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ClinikData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
