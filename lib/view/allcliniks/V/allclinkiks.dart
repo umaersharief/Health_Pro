@@ -107,9 +107,17 @@ class _SearchscreenState extends State<Searchscreen> {
                         ClinicDetailController.my
                             .getClinicsbyID(obj.filterscliicsModel[index].id)
                             .then((value) {
+                          print(
+                              'value from getClinicksByID api : ${value.toString()}');
+                          print(
+                              'latitude : ${ClinicDetailController.my.clinickLocation['latitude']}');
+                          print(
+                              'longitude : ${ClinicDetailController.my.clinickLocation['longitude']}');
                           Get.to(() => Clinicscreen(
                                 clinikData:
                                     ClinicDetailController.my.clinikDatta!,
+                                latitude: value['latitude'] ?? "25.2050708",
+                                longitude: value['longitude'] ?? "51.4253017",
                               ));
                         });
                       },

@@ -11,18 +11,29 @@ import 'package:health_pro/view/ClinicsDetails/M/singleclinik_model.dart';
 import 'package:health_pro/view/Location/C/controller.dart';
 
 import '../../../utils/app_images.dart';
+import '../../ClinicsDetails/C/controller.dart';
 import '../../widgets/widgets/custom_text.dart';
 
 class Locationscreen extends StatelessWidget {
   SingleClinikData? clinikData;
+  String latitude;
+  String longitude;
 
-  Locationscreen({super.key, required this.clinikData});
+  Locationscreen({
+    super.key,
+    required this.clinikData,
+    required this.latitude,
+    required this.longitude,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var clinickImage = clinikData?.image![0];
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    log("clinikData!.latitude ${clinikData!.latitude}    OR     clinikData!.longitude ${clinikData!.longitude} ");
+    // log("clinikData!.latitude ${clinikData!.latitude}    OR     clinikData!.longitude ${clinikData!.longitude} ");
+    log("Location page latitude $latitude    OR     longitude $longitude");
+
     CameraPosition kGooglePlex = CameraPosition(
       zoom: 18,
       target: LatLng(clinikData!.latitude!, clinikData!.longitude!),
@@ -34,7 +45,7 @@ class Locationscreen extends StatelessWidget {
       Marker(
           icon: customMarkerIcon,
           markerId: const MarkerId('1'),
-          position: LatLng(clinikData!.latitude!, clinikData!.longitude!),
+          position: LatLng(double.parse(latitude), double.parse(longitude)),
           infoWindow: InfoWindow(title: "${clinikData!.name}"))
     ];
     return Scaffold(
@@ -102,14 +113,23 @@ class Locationscreen extends StatelessWidget {
                           ),
                           child: ListTile(
                             onTap: () {
+                              print('clinick image : ${clinikData?.image}');
                               obj.clearSelectedLocation();
                               obj.initialPosition(LatLng(clinikData!.latitude!,
                                   clinikData!.longitude!));
                             },
-                            leading: CircleAvatar(
-                              backgroundImage: AssetImage(AppImages.pic1),
-                              radius: 30,
-                            ),
+                            leading: clinickImage == null
+                                ? CircleAvatar(
+                                    backgroundImage: AssetImage(AppImages.pic1),
+                                  )
+                                : CircleAvatar(
+                                    backgroundImage: NetworkImage(clinickImage),
+                                  ),
+                            //  CircleAvatar(
+                            //   backgroundImage: clinickImage == null ? AssetImage(AppImages.pic1):
+                            //       NetworkImage(clinickImage!),
+                            //   radius: 30,
+                            // ),
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -143,36 +163,36 @@ class Locationscreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    RatingBar.builder(
-                                      initialRating: clinikData!.averageReviews!
-                                          .toDouble(),
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemPadding: const EdgeInsets.symmetric(
-                                          horizontal: 2.0),
-                                      itemBuilder: (context, _) => const Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (value) {},
-                                      itemSize: 15.sp,
-                                    ),
-                                    SizedBox(
-                                      width: 3.w,
-                                    ),
-                                    customTextRegular(
-                                      title:
-                                          clinikData!.totalReviews!.toString(),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.blackb3,
-                                    ),
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     RatingBar.builder(
+                                //       initialRating: clinikData!.averageReviews!
+                                //           .toDouble(),
+                                //       minRating: 1,
+                                //       direction: Axis.horizontal,
+                                //       allowHalfRating: true,
+                                //       itemCount: 5,
+                                //       itemPadding: const EdgeInsets.symmetric(
+                                //           horizontal: 2.0),
+                                //       itemBuilder: (context, _) => const Icon(
+                                //         Icons.star,
+                                //         color: Colors.amber,
+                                //       ),
+                                //       onRatingUpdate: (value) {},
+                                //       itemSize: 15.sp,
+                                //     ),
+                                //     SizedBox(
+                                //       width: 3.w,
+                                //     ),
+                                //     customTextRegular(
+                                //       title:
+                                //           clinikData!.totalReviews!.toString(),
+                                //       fontSize: 14.sp,
+                                //       fontWeight: FontWeight.w400,
+                                //       color: AppColors.blackb3,
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),

@@ -17,6 +17,7 @@ import 'package:health_pro/view/widgets/widgets/custom_text.dart';
 import 'package:provider/provider.dart';
 
 import '../UserProfile/Provider/userprofile_provider.dart';
+import '../terms_conditions/terms_and_conditions.dart';
 
 class Profilescreen extends StatefulWidget {
   const Profilescreen({super.key});
@@ -153,7 +154,13 @@ class _ProfilescreenState extends State<Profilescreen> {
               Profilecomp1(
                 text: 'Terms and Conditions',
                 image: AppImages.termsicon,
-                ontap: () {},
+                ontap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const TermsAndConditions(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

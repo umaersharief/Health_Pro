@@ -17,7 +17,14 @@ import '../C/controller.dart';
 // ignore: must_be_immutable
 class Clinicscreen extends StatefulWidget {
   SingleClinikData clinikData;
-  Clinicscreen({super.key, required this.clinikData});
+  String latitude;
+  String longitude;
+  Clinicscreen({
+    super.key,
+    required this.clinikData,
+    required this.latitude,
+    required this.longitude,
+  });
 
   @override
   State<Clinicscreen> createState() => _ClinicscreenState();
@@ -187,6 +194,8 @@ class _ClinicscreenState extends State<Clinicscreen> {
                   ),
                   GestureDetector(
                     onTap: () => Get.to(() => Locationscreen(
+                          latitude: widget.latitude,
+                          longitude: widget.longitude,
                           clinikData: widget.clinikData,
                         )),
                     child: Image.asset(
@@ -239,33 +248,33 @@ class _ClinicscreenState extends State<Clinicscreen> {
                   // SizedBox(
                   //   height: 15.h,
                   // ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 17),
-                    child: customTextRegular(
-                      title: 'Services',
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.cardcolor,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  SizedBox(
-                    height: 260.h,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: widget.clinikData.services!.data!.length,
-                      itemBuilder: (context, index) => Doctorcomp(
-                        image: AppImages.d1,
-                        name: widget.clinikData.services!.data![0].name
-                            .toString(),
-                        specilist: widget
-                            .clinikData.services!.data![0].department
-                            .toString(),
-                      ),
-                    ),
-                  )
+                  // Container(
+                  //   margin: const EdgeInsets.only(left: 17),
+                  //   child: customTextRegular(
+                  //     title: 'Services',
+                  //     fontSize: 16.sp,
+                  //     fontWeight: FontWeight.w700,
+                  //     color: AppColors.cardcolor,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 15.h,
+                  // ),
+                  // SizedBox(
+                  //   height: 260.h,
+                  //   child: ListView.builder(
+                  //     shrinkWrap: true,
+                  //     itemCount: widget.clinikData.services!.data!.length,
+                  //     itemBuilder: (context, index) => Doctorcomp(
+                  //       image: AppImages.d1,
+                  //       name: widget.clinikData.services!.data![0].name
+                  //           .toString(),
+                  //       specilist: widget
+                  //           .clinikData.services!.data![0].department
+                  //           .toString(),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
               Padding(

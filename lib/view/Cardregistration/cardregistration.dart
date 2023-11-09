@@ -84,12 +84,15 @@ class _CardRegistrationState extends State<CardRegistration> {
                     height: 8.h,
                   ),
                   customTextField(
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10)
-                    ],
+                    inputFormatters: [LengthLimitingTextInputFormatter(10)],
                     controller: idNumberController,
                     hintText: 'Enter your Passport or QID Number',
-                    isKeyboard: true,
+                    isKeyboard: false,
+                    onChanged: (val) {
+                      if (idNumberController.text.length == 12) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+                    },
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter your Passport or QID Number';
