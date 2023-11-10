@@ -111,7 +111,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     Tid = messageType.split('McsId').first;
                   });
                 }
-
                 if (jsonEncode(consoleMessage.message.toString())
                         .contains('Status') &&
                     jsonEncode(consoleMessage.message.toString())
