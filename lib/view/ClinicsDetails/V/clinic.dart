@@ -261,14 +261,15 @@ class _ClinicscreenState extends State<Clinicscreen> {
                   SizedBox(
                     height: 260.h,
                     child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: widget.clinikData.services!.data!.length,
                       itemBuilder: (context, index) => Doctorcomp(
                         image: AppImages.d1,
-                        name: widget.clinikData.services!.data![0].name
+                        name: widget.clinikData.services!.data![index].name
                             .toString(),
                         specilist: widget
-                            .clinikData.services!.data![0].department
+                            .clinikData.services!.data![index].department
                             .toString(),
                       ),
                     ),

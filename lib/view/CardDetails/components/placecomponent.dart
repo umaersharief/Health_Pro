@@ -29,7 +29,7 @@ class Placecomponent extends StatelessWidget {
       ),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundImage: NetworkImage(image),
+          // backgroundImage: NetworkImage(image),
           radius: 30.r,
         ),
         title: Column(

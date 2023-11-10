@@ -17,10 +17,7 @@ import '../Cardregistration/cardregistration.dart';
 class CardDetails extends StatefulWidget {
   String cardtype;
 
-  CardDetails({
-    super.key,
-    this.cardtype = 'Individual Care Card',
-  });
+  CardDetails({super.key, this.cardtype = 'Individual Care Card'});
 
   @override
   State<CardDetails> createState() => _CardDetailsState();
@@ -29,30 +26,68 @@ class CardDetails extends StatefulWidget {
 class _CardDetailsState extends State<CardDetails> {
   int activeindex = 0;
   int nextind = 0;
-  // List<String> texts = [
-  //   'Silver Plan',
-  //   'Gold Plan',
-  //   'Bronze Plan',
-  //   'AL Maha Plan',
-  //   'Pearl Plan'
-  // ];
-  // List<String> images = [
-  //   AppImages.silvercard,
-  //   AppImages.goldcard,
-  //   AppImages.bronzecard,
-  //   AppImages.corporatecard,
-  //   AppImages.pearlcard
-  // ];
+  List<String> texts = [
+    'Silver Plan',
+    'Gold Plan',
+    'Bronze Plan',
+    'AL Maha Plan',
+    'Pearl Plan'
+  ];
+  List<String> images = [
+    AppImages.silvercard,
+    AppImages.goldcard,
+    AppImages.bronzecard,
+    AppImages.corporatecard,
+    AppImages.pearlcard
+  ];
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(milliseconds: 100), () {
+      Provider.of<PlanDetailsProvider>(context, listen: false)
+          .getPlanbyID()
+          .then((value) {
+        _data = List.generate(value ?? 0, (i) => i);
+        totalPage = _data.length % _perPage == 0
+            ? int.parse((_data.length / _perPage).toString())
+            : int.parse((_data.length / _perPage).toString().split('.').first) +
+                1;
+        setState(() {});
+      });
+    });
+
+    super.initState();
+  }
+
+  List<int> _data = [];
+  int _page = 0; // default page to 0
+  final int _perPage = 3; //
+
+  var dataToShow = [];
+  int totalPage = 0;
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<PlanDetailsProvider>(context, listen: false);
+    int from = 0;
+    int to = 0;
 
+    if (((_page * _perPage) + _perPage) < _data.length) {
+      from = (_page * _perPage);
+      to = ((_page * _perPage) + _perPage);
+    } else {
+      from = (_page * _perPage);
+      to = _data.length;
+    }
+    debugPrint('from $from');
+    debugPrint('to $to');
+    debugPrint('totalPage $totalPage');
+
+    dataToShow = _data.sublist(from, to); //
     return Scaffold(
       body: SafeArea(
         child: Consumer<PlanDetailsProvider>(
           builder: (context, plandetails, child) {
-            return plandetails.palnDetailsModel.isEmpty
+            return plandetails.palnDetailsModel.isEmpty || totalPage == 0
                 ? SpinKitCircle(
                     color: AppColors.primaryblue,
                     size: 20.sp,
@@ -151,14 +186,14 @@ class _CardDetailsState extends State<CardDetails> {
                                 Expanded(
                                   child: ListView.builder(
                                     // itemCount: plandetails.palnDetailsModel[0].data!.clinics!.total,
-                                    itemCount: provider.dataToShow.length,
+                                    itemCount: dataToShow.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       var item = plandetails
                                           .palnDetailsModel[0]
                                           .data!
                                           .clinics!
-                                          .data![provider.dataToShow[index]];
+                                          .data![dataToShow[index]];
 
                                       return Placecomponent(
                                         image: "${item.logo}",
@@ -187,12 +222,11 @@ class _CardDetailsState extends State<CardDetails> {
                                         Colors.white,
                                     // buttonSelectedBackgroundColor: Colors.white,
                                   ),
-                                  initialPage: 0,
-                                  numberPages: provider.totalPage,
+                                  numberPages: totalPage,
                                   onPageChange: (int index) {
                                     debugPrint('onPageChange -- $index');
                                     setState(() {
-                                      provider.page = index;
+                                      _page = index;
                                     });
                                   },
                                 ),

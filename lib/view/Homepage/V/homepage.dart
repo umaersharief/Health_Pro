@@ -252,20 +252,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                           price:
                                               "${obj.individualplanModel[0].data![index].price}",
                                           imageonTap: () {
-                                            var p = Provider.of<
-                                                    PlanDetailsProvider>(
-                                                context,
-                                                listen: false);
+                                            Provider.of<PlanDetailsProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .planID =
+                                                obj.individualplanModel[0]
+                                                    .data![index].id
+                                                    .toString();
 
-                                            p
-                                                .givepagination(
-                                                    context,
-                                                    obj.individualplanModel[0]
-                                                        .data![index].id
-                                                        .toString())
-                                                .then((value) {
-                                              Get.to(() => CardDetails());
-                                            });
+                                            Get.to(() => CardDetails());
                                           },
                                           ontap: () => Get.to(() =>
                                               CardRegistration(
@@ -337,20 +332,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                           price:
                                               "${obj.corporateplanModel[0].data![index].price}",
                                           imageonTap: () {
-                                            var p = Provider.of<
-                                                    PlanDetailsProvider>(
-                                                context,
-                                                listen: false);
+                                            Provider.of<PlanDetailsProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .planID =
+                                                obj.individualplanModel[0]
+                                                    .data![index].id
+                                                    .toString();
 
-                                            p
-                                                .givepagination(
-                                                    context,
-                                                    obj.individualplanModel[0]
-                                                        .data![index].id
-                                                        .toString())
-                                                .then((value) {
-                                              Get.to(() => CardDetails());
-                                            });
+                                            Get.to(() => CardDetails());
                                           },
                                           ontap: () => Get.to(() =>
                                               CardRegistration(

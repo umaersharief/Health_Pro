@@ -84,7 +84,7 @@ class _CardRegistrationState extends State<CardRegistration> {
                     height: 8.h,
                   ),
                   customTextField(
-                    inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                    inputFormatters: [LengthLimitingTextInputFormatter(12)],
                     controller: idNumberController,
                     hintText: 'Enter your Passport or QID Number',
                     isKeyboard: false,
@@ -145,7 +145,7 @@ class _CardRegistrationState extends State<CardRegistration> {
                   ),
                   IntlPhoneField(
                     controller: phoneController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Phone Number',
                       border: OutlineInputBorder(
                         borderSide: BorderSide(),
@@ -256,5 +256,5 @@ Widget gettext(String text) {
       title: text,
       fontSize: 14.sp,
       fontWeight: FontWeight.w500,
-      color: Color(0xff171725));
+      color: const Color(0xff171725));
 }
