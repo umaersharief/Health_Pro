@@ -221,31 +221,31 @@ class _ClinicscreenState extends State<Clinicscreen> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 17.w),
-                    child: customTextRegular(
-                      title: 'Doctors',
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.cardcolor,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  SizedBox(
-                    height: 171.h,
-                    child: ListView.builder(
-                      itemCount: images1.length,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) =>
-                          Personcomp(path: images1[index]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 17.w),
+                  //   child: customTextRegular(
+                  //     title: 'Doctors',
+                  //     fontSize: 16.sp,
+                  //     fontWeight: FontWeight.w700,
+                  //     color: AppColors.cardcolor,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 15.h,
+                  // ),
+                  // SizedBox(
+                  //   height: 171.h,
+                  //   child: ListView.builder(
+                  //     itemCount: images1.length,
+                  //     scrollDirection: Axis.horizontal,
+                  //     shrinkWrap: true,
+                  //     itemBuilder: (context, index) =>
+                  //         Personcomp(path: images1[index]),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 15.h,
+                  // ),
                   Container(
                     margin: const EdgeInsets.only(left: 17),
                     child: customTextRegular(

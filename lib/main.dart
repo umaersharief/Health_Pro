@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => RegisterProvider()),
               ChangeNotifierProvider(create: (_) => LogoutProvider()),
               ChangeNotifierProvider(create: (_) => ChangePasswordProvider()),
-              // ChangeNotifierProvider(create: (_) => HomeProvider()),
+              // ChangeNotifierProvider(create: (_) => Ho meProvider()),
               ChangeNotifierProvider(create: (_) => UserProfileProvider()),
               // ChangeNotifierProvider(create: (_) => ClinicDetailProvider()),
               ChangeNotifierProvider(create: (_) => CareCardRegiterProvider()),
