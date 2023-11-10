@@ -209,14 +209,14 @@ class _LoginState extends State<Login> {
                           SizedBox(
                             width: 16.w,
                           ),
-                          customTextRegular(
-                              title: "or",
-                              fontSize: 16.h,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xff757575)),
-                          SizedBox(
-                            width: 16.w,
-                          ),
+                          // customTextRegular(
+                          //     title: "or",
+                          //     fontSize: 16.h,
+                          //     fontWeight: FontWeight.w500,
+                          //     color: const Color(0xff757575)),
+                          // SizedBox(
+                          //   width: 16.w,
+                          // ),
                           // Expanded(
                           //     child:
                           //         customDivider(height: 1.h, width: Get.width)),
@@ -225,16 +225,16 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: 19.h,
                       ),
-                      customButton(
-                        ontap: () {
-                          loginprovider.signInWithGoogle(context);
-                        },
-                        text: "Continue with Google",
-                        fontColor: Colors.white,
-                        color: Colors.red,
-                        image: "assets/icons/Frame (1).svg",
-                        ishide: true,
-                      ),
+                      // customButton(
+                      //   ontap: () {
+                      //     loginprovider.signInWithGoogle(context);
+                      //   },
+                      //   text: "Continue with Google",
+                      //   fontColor: Colors.white,
+                      //   color: Colors.red,
+                      //   image: "assets/icons/Frame (1).svg",
+                      //   ishide: true,
+                      // ),
                       SizedBox(
                         height: 12.h,
                       ),

@@ -97,8 +97,10 @@ class _ProfilescreenState extends State<Profilescreen> {
                 icon: CupertinoIcons.creditcard_fill,
                 ontap: () {
                   Provider.of<MyPlanProvider>(context, listen: false)
-                      .getMyPlans();
-                  // Get.to(() => RegcardDetails());
+                      .getMyPlans()
+                      .then((value) {
+                    Get.to(() => RegcardDetails());
+                  });
                 },
               ),
               Profilecomp1(

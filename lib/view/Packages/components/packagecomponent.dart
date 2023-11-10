@@ -37,7 +37,7 @@ class MyWidget extends StatelessWidget {
           ),
           child: haverow == false
               ? Container(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   child: customTextRegular(
                     title: 'Quantity',
                     fontSize: 20.sp,

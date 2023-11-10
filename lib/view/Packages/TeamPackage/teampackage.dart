@@ -61,7 +61,7 @@ class Teampackage extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              const Iconcontainer(),
+              // const Iconcontainer(),
               SizedBox(
                 height: 19.h,
               ),
@@ -74,7 +74,7 @@ class Teampackage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          showdialogue(
+                          showBottomSheet(
                               context, height, width, dataPlan.lists![index]);
                         },
                         child: MyWidget(
@@ -108,127 +108,98 @@ class Teampackage extends StatelessWidget {
     );
   }
 
-  void showdialogue(context, height, width, Lists list) {
-    showDialog(
+  void showBottomSheet(context, height, width, Lists list) {
+    showModalBottomSheet(
       context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+      ),
+      backgroundColor: Colors.white,
       builder: (context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: Colors.white,
-          content: Stack(
-            children: [
-              SizedBox(
-                height: 500,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: height * 0.1,
-                      width: width * 0.2,
-                      child: Image(
-                        fit: BoxFit.contain,
-                        image: NetworkImage(
-                          // dataPlan
-                          list.plan!.image!,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${list.title}',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'Quantity: ${list.quantity}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Actual rate: ${list.actualRate} QAR',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            'Discounted rate: ${list.discountedRate} QAR',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            'Final rate: ${list.finalRate} QAR',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Plan',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                height: height * 0.1,
-                                width: width * 0.2,
-                                child: Image(
-                                  fit: BoxFit.contain,
-                                  image: NetworkImage(
-                                    // dataPlan
-                                    list.plan!.image!,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                '${list.plan!.name}',
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Type: ${list.plan!.type}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Price: ${list.plan!.price}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 16,
-                left: 16,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    width: 25,
-                    height: 25,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.red,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.close,
-                        size: 20,
-                        color: Colors.white,
-                      ),
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: height * 0.1,
+                  width: width * 0.2,
+                  child: Image(
+                    fit: BoxFit.contain,
+                    image: NetworkImage(
+                      list.plan!.image!,
                     ),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${list.title}',
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Quantity: ${list.quantity}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'Actual rate: ${list.actualRate} QAR',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        'Discounted rate: ${list.discountedRate} QAR',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        'Final rate: ${list.finalRate} QAR',
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Plan',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            height: height * 0.1,
+                            width: width * 0.2,
+                            child: Image(
+                              fit: BoxFit.contain,
+                              image: NetworkImage(
+                                list.plan!.image!,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            '${list.plan!.name}',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'Type: ${list.plan!.type}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'Price: ${list.plan!.price}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

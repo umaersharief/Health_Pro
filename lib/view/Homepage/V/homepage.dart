@@ -153,14 +153,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 4.h,
                             ),
                             SizedBox(
-                                width: 200.w,
-                                child: customTextRegular(
-                                    title:
-                                        "The only discount card by healthpro  ",
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.h,
-                                    color: Colors.white,
-                                    height: 1.5)),
+                              width: 200.w,
+                              child: customTextRegular(
+                                title: "The only discount card by healthpro  ",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12.h,
+                                color: Colors.white,
+                                height: 1.5,
+                              ),
+                            ),
                           ],
                         ),
                         Expanded(
