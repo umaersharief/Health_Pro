@@ -152,7 +152,7 @@ Yes, your personal and medical information is kept confidential with HealthPro C
                     title: customTextRegular(
                         textAlign: TextAlign.justify,
                         title: qa.question,
-                        fontSize: 12.sp,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w400,
                         color: qa.isExpanded
                             ? AppColors.cardcolor
@@ -175,7 +175,7 @@ Yes, your personal and medical information is kept confidential with HealthPro C
                           textAlign: TextAlign.justify,
                           qa.answer,
                           style: TextStyle(
-                              fontSize: 12.sp,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.blackb1),
                         ),
