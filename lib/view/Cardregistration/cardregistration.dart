@@ -232,6 +232,9 @@ class _CardRegistrationState extends State<CardRegistration> {
                           );
 
                           if (data != null) {
+                            print(
+                                'data -------------------------------------data');
+                            print('data ${data.toJson().toString()}');
                             Get.to(PaymentScreen(data));
                           }
 

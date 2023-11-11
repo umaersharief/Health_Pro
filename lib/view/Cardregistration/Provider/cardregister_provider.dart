@@ -26,6 +26,8 @@ class CareCardRegiterProvider extends ChangeNotifier {
     // required String amount,
   }) async {
     print("*****gender ****$gender****  plann id****$planID*****");
+    print("*****name ****$name****  idNumber****$idNumber*****");
+    print("*****dob ****$dob****  phone****$phone*****");
     updateValue(load: true);
     try {
       var body = {
@@ -37,7 +39,7 @@ class CareCardRegiterProvider extends ChangeNotifier {
         'plan_id': planID,
         'total_payment': "456"
       };
-      final response = await apiService.careCardRegister(params: body);
+      var response = await apiService.careCardRegister(params: body);
 
       // ignore: avoid_print
       print(

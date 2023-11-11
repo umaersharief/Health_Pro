@@ -48,18 +48,24 @@ class APIClient {
   /// for Post request.
   Future<Response> post({required String url, var params}) async {
     Response response;
+    print('url of the method : ${url}');
     try {
       response = await _dio.post(url,
           data: params,
           options: Options(responseType: ResponseType.json, headers: headers));
+      print('response of card registration: $response');
     } on DioException catch (exception) {
+      print(
+          'exception ------------------exception-------------------- ${exception.toString()}');
       if (exception.response != null) {
         String content = exception.response.toString();
         Map<String, dynamic> map = jsonDecode(exception.response.toString());
         if (map['message'] != null) {
+          print('error_______${content}_________error');
           AppConstant.showCustomSnackBar(map['message'].toString(),
               isError: true);
         } else if (map['errors'] != null) {
+          print('error_______${map['message'].toString()}_________error');
           AppConstant.showCustomSnackBar(map['errors'].toString(),
               isError: true);
         } else {
