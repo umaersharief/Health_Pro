@@ -34,7 +34,7 @@ class Expansioncomp extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(
-              left: width * 0.17, right: width * 0.1, bottom: height * 0.01),
+              left: width * 0.185, right: width * 0.1, bottom: height * 0.03),
           child: customTextRegular(
               title: answer,
               fontSize: 12.sp,
