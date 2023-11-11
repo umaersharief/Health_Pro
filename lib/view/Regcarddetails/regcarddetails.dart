@@ -34,22 +34,19 @@ class _RegcardDetailsState extends State<RegcardDetails> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(child: Consumer<MyPlanProvider>(
+        child: Consumer<MyPlanProvider>(
           builder: (context, myplanprovider, child) {
             // ignore: prefer_is_empty
-            return SizedBox(
-              height: height,
-              width: width,
-              child: myplanprovider.loading
-                  ? Center(
-                      child:
-                          SpinKitCircle(color: AppColors.blueb9, size: 20.sp))
-                  : myplanprovider.myplanModel.isEmpty
-                      ? const Center(child: Text("No Card is Registered"))
-                      : Column(
+            return myplanprovider.loading
+                ? Center(
+                    child: SpinKitCircle(color: AppColors.blueb9, size: 20.sp))
+                : myplanprovider.myplanModel.isEmpty
+                    ? const Center(child: Text("No Card is Registered"))
+                    : SingleChildScrollView(
+                        child: Column(
                           children: [
                             SizedBox(
-                              height: 277.h,
+                              // height: 277.h,
                               width: double.infinity,
                               child: Stack(
                                 clipBehavior: Clip.none,
@@ -203,9 +200,9 @@ class _RegcardDetailsState extends State<RegcardDetails> {
                             ),
                           ],
                         ),
-            );
+                      );
           },
-        )),
+        ),
       ),
     );
   }
