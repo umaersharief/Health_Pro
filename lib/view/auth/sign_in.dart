@@ -27,7 +27,7 @@ class _SignInState extends State<SignIn> {
             Container(
               height: 457.h,
               width: Get.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
                       "assets/images/doctor_image.png",
@@ -112,7 +112,7 @@ class _SignInState extends State<SignIn> {
                       ishide: true,
                       ontap: () {
                         Provider.of<LogInProvider>(context, listen: false)
-                            .googleLogin();
+                            .signInWithGoogle(context);
                       }),
                   SizedBox(
                     height: 12.h,
@@ -139,7 +139,7 @@ class _SignInState extends State<SignIn> {
                           fontWeight: FontWeight.w400,
                           color: const Color(0xff7B7B7B)),
                       InkWell(
-                        onTap: () => Get.to(() => SignUp()),
+                        onTap: () => Get.to(() => const SignUp()),
                         child: customTextRegular(
                             title: "Register",
                             fontSize: 12.h,

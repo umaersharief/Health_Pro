@@ -43,7 +43,7 @@ class _MyPasswordScreenState extends State<MyPasswordScreen> {
                   Get.to(() => ChangePassword());
                 },
               ),
-              Changepasscomp1(title: 'Two Step Verfication'),
+              // Changepasscomp1(title: 'Two Step Verfication'),
               Changepasscomp1(title: 'Save information', isradio: true),
             ],
           ),

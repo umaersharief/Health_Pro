@@ -7,10 +7,18 @@ import '../../widgets/widgets/custom_text.dart';
 class Expansioncomp extends StatelessWidget {
   IconData? icon;
   String title;
-  Expansioncomp({super.key, required this.title, this.icon});
+  String answer;
+  Expansioncomp({
+    super.key,
+    required this.title,
+    this.icon,
+    required this.answer,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return ExpansionTile(
       iconColor: AppColors.blackb1,
       title: customTextRegular(
@@ -23,6 +31,17 @@ class Expansioncomp extends StatelessWidget {
         color: AppColors.cardcolor,
         size: 40.sp,
       ),
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              left: width * 0.185, right: width * 0.1, bottom: height * 0.03),
+          child: customTextRegular(
+              title: answer,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              color: AppColors.blackb1),
+        ),
+      ],
     );
   }
 }

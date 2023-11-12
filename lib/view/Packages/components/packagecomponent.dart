@@ -25,10 +25,10 @@ class MyWidget extends StatelessWidget {
     return SlideAction(
       trackBuilder: (context, state) {
         return Container(
-          padding: EdgeInsets.only(right: 30),
+          padding: const EdgeInsets.only(right: 30),
           decoration: BoxDecoration(
             color: color,
-            border: Border(
+            border: const Border(
               bottom: BorderSide(
                 color: Color(0xFFC2C2C2),
                 width: 1.0,
@@ -37,7 +37,7 @@ class MyWidget extends StatelessWidget {
           ),
           child: haverow == false
               ? Container(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   child: customTextRegular(
                     title: 'Quantity',
                     fontSize: 20.sp,
@@ -69,27 +69,27 @@ class MyWidget extends StatelessWidget {
         return Container(
           margin: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: Colors.orange,
+            // color: Colors.orange,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Center(
-            // Show loading indicator if async operation is being performed
-            child: state.isPerformingAction
-                ? const CupertinoActivityIndicator(
-                    color: Colors.white,
-                  )
-                : const Icon(
-                    Icons.chevron_right,
-                    color: Colors.white,
-                  ),
-          ),
+          // child: Center(
+          //   // Show loading indicator if async operation is being performed
+          //   child: state.isPerformingAction
+          //       ? const CupertinoActivityIndicator(
+          //           color: Colors.white,
+          //         )
+          //       : const Icon(
+          //           Icons.chevron_right,
+          //           color: Colors.white,
+          //         ),
+          // ),
         );
       },
       action: () async {
         // Async operation
         await Future.delayed(
           const Duration(seconds: 1),
-          () => Get.to(() => Table1()),
+          () => Get.to(() => const Table1()),
         );
       },
     );

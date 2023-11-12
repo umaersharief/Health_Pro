@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:health_pro/utils/app_colors.dart';
 import 'package:health_pro/utils/app_images.dart';
+import 'package:health_pro/view/Regcarddetails/Provider/myplan_provider.dart';
 import 'package:health_pro/view/UserProfile/getuserprofile.dart';
 import 'package:health_pro/view/Healthhistory/healthhistory.dart';
 import 'package:health_pro/view/Help/help.dart';
@@ -16,6 +17,7 @@ import 'package:health_pro/view/widgets/widgets/custom_text.dart';
 import 'package:provider/provider.dart';
 
 import '../UserProfile/Provider/userprofile_provider.dart';
+import '../terms_conditions/terms_and_conditions.dart';
 
 class Profilescreen extends StatefulWidget {
   const Profilescreen({super.key});
@@ -94,7 +96,11 @@ class _ProfilescreenState extends State<Profilescreen> {
                 text: 'My Care Card',
                 icon: CupertinoIcons.creditcard_fill,
                 ontap: () {
-                  Get.to(() => RegcardDetails());
+                  Provider.of<MyPlanProvider>(context, listen: false)
+                      .getMyPlans()
+                      .then((value) {
+                    Get.to(() => RegcardDetails());
+                  });
                 },
               ),
               Profilecomp1(
@@ -150,7 +156,13 @@ class _ProfilescreenState extends State<Profilescreen> {
               Profilecomp1(
                 text: 'Terms and Conditions',
                 image: AppImages.termsicon,
-                ontap: () {},
+                ontap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const TermsAndConditions(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

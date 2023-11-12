@@ -84,12 +84,15 @@ class _CardRegistrationState extends State<CardRegistration> {
                     height: 8.h,
                   ),
                   customTextField(
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10)
-                    ],
+                    inputFormatters: [LengthLimitingTextInputFormatter(12)],
                     controller: idNumberController,
                     hintText: 'Enter your Passport or QID Number',
-                    isKeyboard: true,
+                    isKeyboard: false,
+                    onChanged: (val) {
+                      if (idNumberController.text.length == 12) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+                    },
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter your Passport or QID Number';
@@ -142,7 +145,7 @@ class _CardRegistrationState extends State<CardRegistration> {
                   ),
                   IntlPhoneField(
                     controller: phoneController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Phone Number',
                       border: OutlineInputBorder(
                         borderSide: BorderSide(),
@@ -229,6 +232,9 @@ class _CardRegistrationState extends State<CardRegistration> {
                           );
 
                           if (data != null) {
+                            print(
+                                'data -------------------------------------data');
+                            print('data ${data.toJson().toString()}');
                             Get.to(PaymentScreen(data));
                           }
 
@@ -253,5 +259,5 @@ Widget gettext(String text) {
       title: text,
       fontSize: 14.sp,
       fontWeight: FontWeight.w500,
-      color: Color(0xff171725));
+      color: const Color(0xff171725));
 }

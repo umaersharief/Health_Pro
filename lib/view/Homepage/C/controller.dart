@@ -1,17 +1,19 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+import 'package:get/get.dart';
 import 'package:health_pro/APIClient/api_service.dart';
-import '../Models/allclinics_model.dart';
-import '../Models/allschemes_model.dart';
-import '../Models/corporate_planmodel.dart';
-import '../Models/individual_planmodel.dart';
+import '../../Homepage/M/allclinics_model.dart';
+import '../../Homepage/M/allschemes_model.dart';
+import '../../Homepage/M/corporate_planmodel.dart';
+import '../../Homepage/M/individual_planmodel.dart';
 
-class HomeProvider extends ChangeNotifier {
-  bool _loading = false;
-  bool get loading => _loading;
+class HomeController extends GetxController {
+  static HomeController get my => Get.find();
+
+  bool loading = false;
 
   Future<void> updateValue({required bool load}) async {
-    _loading = load;
+    loading = load;
     // notifyListeners();
   }
 
@@ -27,7 +29,7 @@ class HomeProvider extends ChangeNotifier {
         individualplanModel.clear();
         Map<String, dynamic> map = jsonDecode(response.toString());
         individualplanModel.add(IndividualPlansModel.fromJson(map));
-        notifyListeners();
+        update();
       } else {
         updateValue(load: false);
       }
@@ -53,7 +55,7 @@ class HomeProvider extends ChangeNotifier {
         corporateplanModel.clear();
         Map<String, dynamic> map = jsonDecode(response.toString());
         corporateplanModel.add(CorporatePlansModel.fromJson(map));
-        notifyListeners();
+        update();
       } else {
         updateValue(load: false);
       }
@@ -65,20 +67,21 @@ class HomeProvider extends ChangeNotifier {
   }
 
   // get family and packages card
-  List<AllSchemesModel> schemesPackageModel = [];
+  AllSchemesModel? schemesPackageModel;
   Future<void> getSchemes() async {
     updateValue(load: true);
     try {
       final response = await apiService.getSchemes();
 
       // ignore: avoid_print
-      print(
-          "***Responce ***${response.statusCode}**********${response.data}*************");
       if (response.statusCode == 200) {
-        schemesPackageModel.clear();
-        Map<String, dynamic> map = jsonDecode(response.toString());
-        schemesPackageModel.add(AllSchemesModel.fromJson(map));
-        notifyListeners();
+        // log("json ${response.toString()}");
+
+        var map = json.decode(response.toString());
+
+        schemesPackageModel =
+            AllSchemesModel.fromJson(map as Map<String, dynamic>);
+        update();
       } else {
         updateValue(load: false);
       }
@@ -89,8 +92,8 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
-  // get all clinics model
-  List<AllClinicsModel> allClinicsModel = [];
+  // get all cics model
+  AllClinicsModel? allClinicsModel;
   Future<void> getallClinics() async {
     updateValue(load: true);
     try {
@@ -100,10 +103,10 @@ class HomeProvider extends ChangeNotifier {
       print(
           "***Responce ***${response.statusCode}**********${response.data}*************");
       if (response.statusCode == 200) {
-        allClinicsModel.clear();
-        Map<String, dynamic> map = jsonDecode(response.toString());
-        allClinicsModel.add(AllClinicsModel.fromJson(map));
-        notifyListeners();
+        Map<String, dynamic> map = await jsonDecode(response.toString());
+
+        allClinicsModel = AllClinicsModel.fromJson(map);
+        update();
       } else {
         updateValue(load: false);
       }

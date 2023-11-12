@@ -18,8 +18,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-
- final CareCardRegiterProvider _provider = CareCardRegiterProvider();
+  final CareCardRegiterProvider _provider = CareCardRegiterProvider();
 
   @override
   void initState() {
@@ -84,7 +83,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
         child: Stack(
           children: [
             InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse(widget.data?.payurl??'')),
+              initialUrlRequest:
+                  URLRequest(url: Uri.parse(widget.data?.payurl ?? '')),
               onWebViewCreated: (controller) async {},
               onLoadStart: (controller, url) async {
                 debugPrint('onLoadStart ::$url');
@@ -111,14 +111,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     Tid = messageType.split('McsId').first;
                   });
                 }
-
                 if (jsonEncode(consoleMessage.message.toString())
                         .contains('Status') &&
                     jsonEncode(consoleMessage.message.toString())
                         .contains('true')) {
                   Future.delayed(const Duration(seconds: 5), () {
                     _provider.onSuccess(data: widget.data);
-                    Get.offAll(() =>  BottomNavbar(2));
+                    Get.offAll(() => BottomNavbar(2));
                     setState(() {
                       enable = true;
                     });

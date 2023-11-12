@@ -36,7 +36,7 @@ class Servicecomponent extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.r),
                 image: DecorationImage(
-                    image: AssetImage(image), fit: BoxFit.cover)),
+                    image: NetworkImage(image), fit: BoxFit.contain)),
           ),
           SizedBox(
             width: 7.w,
