@@ -24,45 +24,62 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlideAction(
       trackBuilder: (context, state) {
-        return Container(
-          padding: const EdgeInsets.only(right: 30),
-          decoration: BoxDecoration(
-            color: color,
-            border: const Border(
-              bottom: BorderSide(
-                color: Color(0xFFC2C2C2),
-                width: 1.0,
+        return Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: Container(
+            padding: const EdgeInsets.only(right: 20),
+            decoration: BoxDecoration(
+              color: color,
+              border: const Border(
+                bottom: BorderSide(
+                  color: Color(0xFFC2C2C2),
+                  width: 1.0,
+                ),
               ),
             ),
+            child: haverow == false
+                ? Container(
+                    alignment: Alignment.center,
+                    child: customTextRegular(
+                      title: 'Quantity',
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.blackb1,
+                    ))
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: Container()),
+                      customTextRegular(
+                        title: rowtitle1,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackb1,
+                      ),
+                      Expanded(child: Container()),
+                      customTextRegular(
+                        title: rowtitle2,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackb1,
+                      ),
+                      Expanded(child: Container()),
+                      customTextRegular(
+                        title: rowtitle2,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackb1,
+                      ),
+                      Expanded(child: Container()),
+                      customTextRegular(
+                        title: rowtitle2,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackb1,
+                      ),
+                    ],
+                  ),
           ),
-          child: haverow == false
-              ? Container(
-                  alignment: Alignment.center,
-                  child: customTextRegular(
-                    title: 'Quantity',
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackb1,
-                  ))
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: Container()),
-                    customTextRegular(
-                      title: rowtitle1,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.blackb1,
-                    ),
-                    Expanded(child: Container()),
-                    customTextRegular(
-                      title: rowtitle2,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.blackb1,
-                    ),
-                  ],
-                ),
         );
       },
       thumbBuilder: (context, state) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:health_pro/utils/app_colors.dart';
+import 'package:health_pro/view/Contactus/familycontact.dart';
 import 'package:health_pro/view/Homepage/M/allschemes_model.dart';
 import 'package:health_pro/view/Packages/components/packagecomponent.dart';
 import 'package:health_pro/view/Packages/components/iconcontainer.dart';
@@ -55,154 +56,200 @@ class Teampackage extends StatelessWidget {
         width: double.infinity,
         color: AppColors.cardcolor,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, bottom: 25),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
           child: Column(
             children: [
               SizedBox(
                 height: 30.h,
               ),
-              // const Iconcontainer(),
-              SizedBox(
-                height: 19.h,
-              ),
-              MyWidget(
-                color: const Color(0xffDEEAFF),
-              ),
               Expanded(
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          showBottomSheet(
-                              context, height, width, dataPlan.lists![index]);
-                        },
-                        child: MyWidget(
-                          haverow: true,
-                          rowtitle1: dataPlan.lists![index].title!,
-                          rowtitle2: dataPlan.lists![index].quantity!,
-                        ),
-                      );
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Table(
+                    columnWidths: const {
+                      0: FixedColumnWidth(200),
+                      1: FixedColumnWidth(200),
+                      2: FixedColumnWidth(200),
+                      3: FixedColumnWidth(200),
+                      4: FixedColumnWidth(200),
+                      5: FixedColumnWidth(200),
                     },
-                    separatorBuilder: (context, index) => SizedBox(
-                          height: 5.h,
+                    border:
+                        TableBorder.all(color: Colors.transparent, width: 5),
+                    children: [
+                      TableRow(
+                        decoration: const BoxDecoration(
+                          color: Color(0xffDEEAFF),
+                          border: Border(
+                            left: BorderSide(color: Colors.grey, width: 2),
+                            right: BorderSide(color: Colors.grey, width: 2),
+                            bottom: BorderSide(
+                                color: AppColors.cardcolor, width: 7),
+                          ),
                         ),
-                    itemCount: dataPlan.lists!.length),
+                        children: [
+                          Container(
+                              height: height * 0.08,
+                              child: Center(
+                                child: Text(
+                                  '',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              )),
+                          Container(
+                              height: height * 0.08,
+                              child: Center(
+                                child: Text(
+                                  'Quantity',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                          Container(
+                              height: height * 0.08,
+                              child: Center(
+                                child: Text(
+                                  'Plan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                          Container(
+                              height: height * 0.08,
+                              child: Center(
+                                child: Text(
+                                  'Actual Rate',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                          Container(
+                              height: height * 0.08,
+                              child: Center(
+                                child: Text(
+                                  'Discounted Rate',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                          Container(
+                              height: height * 0.08,
+                              child: Center(
+                                child: Text(
+                                  'Final Rate',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                        ],
+                      ),
+                      ...List.generate(
+                          dataPlan.lists!.length,
+                          (index) => TableRow(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border(
+                                    left: BorderSide(
+                                        color: Colors.grey, width: 2),
+                                    right: BorderSide(
+                                        color: Colors.grey, width: 2),
+                                    bottom: BorderSide(
+                                        color: AppColors.cardcolor, width: 7),
+                                  ),
+                                ),
+                                children: [
+                                  Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: width * 0.03,
+                                          vertical: height * 0.03),
+                                      child: Text(
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                          dataPlan.lists![index].title
+                                              .toString(),
+                                          textAlign: TextAlign.center),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: width * 0.03,
+                                          vertical: height * 0.03),
+                                      child: Text(
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                          dataPlan.lists![index].quantity
+                                              .toString(),
+                                          textAlign: TextAlign.center),
+                                    ),
+                                  ),
+                                  Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.03,
+                                        vertical: height * 0.03),
+                                    child: Text(
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        dataPlan.lists![index].plan!.name
+                                            .toString(),
+                                        textAlign: TextAlign.center),
+                                  )),
+                                  Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.03,
+                                        vertical: height * 0.03),
+                                    child: Text(
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        "QAR ${dataPlan.lists![index]..toString()}",
+                                        textAlign: TextAlign.center),
+                                  )),
+                                  Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.03,
+                                        vertical: height * 0.03),
+                                    child: Text(
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        "QAR ${dataPlan.lists![index].discountedRate.toString()}",
+                                        textAlign: TextAlign.center),
+                                  )),
+                                  Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.03,
+                                        vertical: height * 0.03),
+                                    child: Text(
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        "QAR ${dataPlan.lists![index].finalRate.toString()}",
+                                        textAlign: TextAlign.center),
+                                  )),
+                                ],
+                              ))
+                    ],
+                  ),
+                ),
               ),
-              Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  child: customButton(
-                    color: AppColors.dividercolor,
-                    text: 'Contact Us',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    fontColor: AppColors.cardcolor,
-                    ontap: () {
-                      Get.to(() => const TeamContact());
-                    },
-                  ))
+              customButton(
+                color: AppColors.dividercolor,
+                text: 'Contact Us',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                fontColor: AppColors.cardcolor,
+                ontap: () {
+                  Get.to(() => const TeamContact());
+                },
+              )
             ],
           ),
         ),
       ),
-    );
-  }
-
-  void showBottomSheet(context, height, width, Lists list) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-      ),
-      backgroundColor: Colors.white,
-      builder: (context) {
-        return SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.1,
-                  width: width * 0.2,
-                  child: Image(
-                    fit: BoxFit.contain,
-                    image: NetworkImage(
-                      list.plan!.image!,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${list.title}',
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Quantity: ${list.quantity}',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Actual rate: ${list.actualRate} QAR',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        'Discounted rate: ${list.discountedRate} QAR',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        'Final rate: ${list.finalRate} QAR',
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Plan',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            height: height * 0.1,
-                            width: width * 0.2,
-                            child: Image(
-                              fit: BoxFit.contain,
-                              image: NetworkImage(
-                                list.plan!.image!,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            '${list.plan!.name}',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        'Type: ${list.plan!.type}',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Price: ${list.plan!.price}',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

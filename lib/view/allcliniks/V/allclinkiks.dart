@@ -35,8 +35,6 @@ class _SearchscreenState extends State<Searchscreen> {
   // ];
   @override
   void initState() {
-    Get.put(AllClinikCOntroller());
-    Get.put(ClinicDetailController());
     AllClinikCOntroller.my.firstdataload(context);
     super.initState();
   }

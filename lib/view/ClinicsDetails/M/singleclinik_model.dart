@@ -33,6 +33,7 @@ class SingleClinikData {
   int? totalReviews;
   int? averageReviews;
   Services? services;
+  String? about;
 
   SingleClinikData(
       {this.id,
@@ -42,6 +43,7 @@ class SingleClinikData {
       this.area,
       this.phone,
       this.time,
+      this.about,
       this.endTime,
       this.latitude,
       this.longitude,
@@ -58,6 +60,7 @@ class SingleClinikData {
     website = json['website'] ?? '';
     area = json['area'] ?? '';
     phone = json['phone'];
+    about = json['about'] ?? "";
     time = json['time'] ?? '00:00';
     endTime = json['end_time'] ?? '00:00';
     latitude = double.parse(json['latitude'] ?? '25.3548');
@@ -79,6 +82,7 @@ class SingleClinikData {
     data['area'] = area;
     data['phone'] = phone;
     data['time'] = time;
+    data['about'] = about;
     data['end_time'] = endTime;
     data['latitude'] = latitude;
     data['longitude'] = longitude;

@@ -103,13 +103,13 @@ class _ProfilescreenState extends State<Profilescreen> {
                   });
                 },
               ),
-              Profilecomp1(
-                text: 'My Transactions',
-                image: AppImages.transactionicon,
-                ontap: () {
-                  Get.to(() => const Healthhistory());
-                },
-              ),
+              // Profilecomp1(
+              //   text: 'My Transactions',
+              //   image: AppImages.transactionicon,
+              //   ontap: () {
+              //     Get.to(() => const Healthhistory());
+              //   },
+              // ),
               GestureDetector(
                 onTap: () {
                   Get.to(() => const MyPasswordScreen());
@@ -130,11 +130,11 @@ class _ProfilescreenState extends State<Profilescreen> {
                   Provider.of<LogoutProvider>(context, listen: false).logout();
                 },
               ),
-              Profilecomp1(
-                text: 'My Rewards',
-                image: AppImages.rewardicon,
-                ontap: () {},
-              ),
+              // Profilecomp1(
+              //   text: 'My Rewards',
+              //   image: AppImages.rewardicon,
+              //   ontap: () {},
+              // ),
               SizedBox(
                 height: 10.h,
               ),

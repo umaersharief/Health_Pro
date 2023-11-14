@@ -175,7 +175,7 @@ class _ClinicscreenState extends State<Clinicscreen> {
                       overflow: TextOverflow.ellipsis,
                       fontWeight: FontWeight.w400,
                       color: AppColors.blackb1,
-                      title: "${widget.clinikData.description}",
+                      title: "${widget.clinikData.about}",
                     ),
                   ),
                   Container(
@@ -207,7 +207,8 @@ class _ClinicscreenState extends State<Clinicscreen> {
                     height: 20.h,
                   ),
                   Iconwithtext(
-                    text: "${widget.clinikData.time}",
+                    text:
+                        "${widget.clinikData.time} - ${widget.clinikData.endTime}",
                     icon: CupertinoIcons.clock_fill,
                   ),
                   Iconwithtext(
@@ -259,19 +260,52 @@ class _ClinicscreenState extends State<Clinicscreen> {
                     height: 15.h,
                   ),
                   SizedBox(
-                    height: 260.h,
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: widget.clinikData.services!.data!.length,
-                      itemBuilder: (context, index) => Doctorcomp(
-                        image: AppImages.d1,
-                        name: widget.clinikData.services!.data![index].name
-                            .toString(),
-                        specilist: widget
-                            .clinikData.services!.data![index].department
-                            .toString(),
-                      ),
+                    // height: 260.h,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Table(
+                            border: TableBorder.all(
+                                color: Colors.grey.shade400, width: 2),
+                            children: [
+                              TableRow(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
+                                ),
+                                children: const [
+                                  Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Department'),
+                                  )),
+                                  Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Discount Percentage'),
+                                  )),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: widget.clinikData.services!.data!.length,
+                          itemBuilder: (context, index) => Doctorcomp(
+                            image: AppImages.d1,
+                            name: widget.clinikData.services!.data![index].name
+                                .toString(),
+                            specilist: widget
+                                .clinikData.services!.data![index].department
+                                .toString(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                      ],
                     ),
                   )
                 ],

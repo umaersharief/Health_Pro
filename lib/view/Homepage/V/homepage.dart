@@ -8,6 +8,8 @@ import 'package:health_pro/utils/app_colors.dart';
 import 'package:health_pro/utils/app_images.dart';
 import 'package:health_pro/view/CardDetails/Provider/pandetails_provider.dart';
 import 'package:health_pro/view/Cardregistration/cardregistration.dart';
+import 'package:health_pro/view/ClinicsDetails/C/controller.dart';
+import 'package:health_pro/view/ClinicsDetails/V/clinic.dart';
 import 'package:health_pro/view/Homepage/C/controller.dart';
 import 'package:health_pro/view/UserProfile/Provider/userprofile_provider.dart';
 import 'package:health_pro/view/CardDetails/carddetails.dart';
@@ -33,6 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Get.put(HomeController());
+    Get.put(AllClinikCOntroller());
+    Get.put(ClinicDetailController());
     Provider.of<UserProfileProvider>(context, listen: false).getUserProfile();
     HomeController.my.getCorporateplan();
     HomeController.my.getIndividualplan();
@@ -480,12 +484,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                       itemBuilder: (context, index) {
                                         final allClinics =
                                             obj.allClinicsModel!.data![index];
-                                        return Servicecomponent(
-                                          image: allClinics.logo!,
-                                          title: "${allClinics.name}",
-                                          description:
-                                              "${allClinics.description}",
-                                          area: "${allClinics.area}",
+                                        return InkWell(
+                                          onTap: () {
+                                            ClinicDetailController.my
+                                                .getClinicsbyID(obj
+                                                    .allClinicsModel!
+                                                    .data![index]
+                                                    .id)
+                                                .then((value) {
+                                              print(
+                                                  'value from getClinicksByID api : ${value.toString()}');
+                                              print(
+                                                  'latitude : ${ClinicDetailController.my.clinickLocation['latitude']}');
+                                              print(
+                                                  'longitude : ${ClinicDetailController.my.clinickLocation['longitude']}');
+                                              Get.to(
+                                                () => Clinicscreen(
+                                                  clinikData:
+                                                      ClinicDetailController
+                                                          .my.clinikDatta!,
+                                                  latitude: value['latitude'] ??
+                                                      "25.2050708",
+                                                  longitude:
+                                                      value['longitude'] ??
+                                                          "51.4253017",
+                                                ),
+                                              );
+                                            });
+                                          },
+                                          child: Servicecomponent(
+                                            image: allClinics.logo!,
+                                            title: "${allClinics.name}",
+                                            description:
+                                                "${allClinics.description}",
+                                            area: "${allClinics.area}",
+                                          ),
                                         );
                                       }),
                                 ),
